@@ -1,0 +1,8 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <ProjectReference Include="../UniStay.Core/UniStay.Core.csproj" />
+    <PackageReference Include="Magick.NET-Q8-AnyCPU" Version="15.0.0" />
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+  <ItemGroup><EmbeddedResource Include="Resources/common-passwords.txt.gz" /></ItemGroup>
+</Project>

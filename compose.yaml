@@ -1,0 +1,44 @@
+name: unistay-csharp
+services:
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_DB: unistay_csharp
+      POSTGRES_USER: unistay_admin
+      POSTGRES_PASSWORD: ${POSTGRES_ADMIN_PASSWORD:?Run scripts/setup_local.py}
+      POSTGRES_INITDB_ARGS: --auth-host=scram-sha-256
+    volumes:
+      - database:/var/lib/postgresql/data
+      - ./.local/init:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: [CMD-SHELL, pg_isready -U unistay_admin -d unistay_csharp]
+      interval: 3s
+      retries: 30
+    restart: unless-stopped
+  api:
+    image: mcr.microsoft.com/dotnet/sdk:10.0
+    working_dir: /src
+    volumes:
+      - ./:/src
+      - nuget:/root/.nuget/packages
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_URLS: http://+:8080
+      ConnectionStrings__UniStay: Host=db;Database=unistay_csharp;Username=unistay_api;Password=${POSTGRES_APP_PASSWORD:?Run scripts/setup_local.py}
+      LocalMailDirectory: /src/.local/mail
+      MediaDirectory: /src/.local/media
+      Logging__LogLevel__Default: Warning
+    ports: ['127.0.0.1:8001:8080']
+    depends_on:
+      db:
+        condition: service_healthy
+    command: [sh, -c, 'dotnet run --project UniStay.Api -- --migrate && exec dotnet run --no-build --project UniStay.Api']
+    healthcheck:
+      test: [CMD-SHELL, 'curl -fsS http://127.0.0.1:8080/health/ > /dev/null']
+      interval: 10s
+      timeout: 5s
+      retries: 18
+    restart: unless-stopped
+volumes:
+  database:
+  nuget:
