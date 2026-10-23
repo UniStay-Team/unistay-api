@@ -1,0 +1,31 @@
+# Local settings and secrets
+.local/
+.recovery/
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+*.p12
+*.pfx
+*.sqlite*
+*.db
+*.dump
+*.backup
+*.sql
+*.log
+backups/
+media/
+uploads/
+.idea/
+.vscode/
+.DS_Store
+
+# .NET
+**/bin/
+**/obj/
+.vs/
+TestResults/
+coverage/
+*.user
+*.suo
