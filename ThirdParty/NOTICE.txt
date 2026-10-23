@@ -1,0 +1,4 @@
+The common-password denylist in UniStay.Application/Resources/common-passwords.txt.gz
+comes from Django 5.2.18 (django/contrib/auth/common-passwords.txt.gz).
+Django's BSD license is preserved in Django-LICENSE.txt.
+This is a public list of weak passwords, not user credentials.

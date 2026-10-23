@@ -1,0 +1,8 @@
+<Solution>
+  <Folder Name="/tests/">
+    <Project Path="tests/UniStay.Tests.csproj" />
+  </Folder>
+  <Project Path="UniStay.Api/UniStay.Api.csproj" />
+  <Project Path="UniStay.Application/UniStay.Application.csproj" />
+  <Project Path="UniStay.Core/UniStay.Core.csproj" />
+</Solution>

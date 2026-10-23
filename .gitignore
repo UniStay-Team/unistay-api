@@ -29,3 +29,10 @@ TestResults/
 coverage/
 *.user
 *.suo
+
+.venv/
+**/TestResults/
+__pycache__/
+*.pyc
+*.enc
+*.hmac
